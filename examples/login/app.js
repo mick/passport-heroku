@@ -1,10 +1,11 @@
-var express = require('express')
+var express = require("express")
+  , app = express()
   , passport = require('passport')
   , util = require('util')
   , HerokuStrategy = require('passport-heroku').Strategy;
 
-var HEROKU_CLIENT_ID = "--insert-heroku-client-id-here--"
-var HEROKU_CLIENT_SECRET = "--insert-heroku-client-secret-here--";
+var HEROKU_CLIENT_ID = process.env.HEROKU_CLIENT_ID;
+var HEROKU_CLIENT_SECRET = process.env.HEROKU_CLIENT_SECRET;
 
 
 // Passport session setup.
@@ -47,8 +48,6 @@ passport.use(new HerokuStrategy({
 
 
 
-
-var app = express.createServer();
 
 // configure Express
 app.configure(function() {
@@ -98,10 +97,10 @@ app.get('/auth/heroku',
 //   login page.  Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/heroku/callback', 
-  passport.authenticate('heroku', { failureRedirect: '/login' }),
-  function(req, res) {
-    res.redirect('/');
-  });
+        passport.authenticate('heroku', { failureRedirect: '/login' }),
+        function(req, res) {
+          res.redirect('/');
+        });
 
 app.get('/logout', function(req, res){
   req.logout();
