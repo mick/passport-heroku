@@ -11,7 +11,9 @@ unobtrusively integrated into any application or framework that supports
 
 ## Install
 
-    $ npm install passport-heroku
+```no-highlight
+$ npm install passport-heroku
+```
 
 ## Usage
 
@@ -22,17 +24,19 @@ and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts
 these credentials and calls `done` providing a user, as well as `options`
 specifying a client ID, client secret, and callback URL.
 
-    passport.use(new HerokuStrategy({
-        client_id: Heroku_CLIENT_ID,
-        client_secret: Heroku_CLIENT_SECRET,
-        callbackURL: "http://127.0.0.1:3000/auth/heroku/callback"
-      },
-      function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ githubId: profile.id }, function (err, user) {
-          return done(err, user);
-        });
-      }
-    ));
+```js
+passport.use(new HerokuStrategy({
+    clientID: Heroku_CLIENT_ID,
+    clientSecret: Heroku_CLIENT_SECRET,
+    callbackURL: "http://127.0.0.1:3000/auth/heroku/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+      return done(err, user);
+    });
+  }
+));
+```
 
 #### Authenticate Requests
 
@@ -42,15 +46,17 @@ authenticate requests.
 For example, as route middleware in an [Express](http://expressjs.com/)
 application:
 
-    app.get('/auth/heroku',
-      passport.authenticate('heroku'));
+```js
+app.get('/auth/heroku',
+  passport.authenticate('heroku'));
 
-    app.get('/auth/heroku/callback', 
-      passport.authenticate('heroku', { failureRedirect: '/login' }),
-      function(req, res) {
-        // Successful authentication, redirect home.
-        res.redirect('/');
-      });
+app.get('/auth/heroku/callback', 
+  passport.authenticate('heroku', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
+```
 
 ## Examples
 
@@ -58,8 +64,10 @@ For a complete, working example, refer to the [login example](https://github.com
 
 ## Tests
 
-    $ npm install --dev
-    $ make test
+```no-highlight
+$ npm install --dev
+$ make test
+```
 
 [![Build Status](https://secure.travis-ci.org/mick/passport-heroku.png)](http://travis-ci.org/mick/passport-heroku)
 
