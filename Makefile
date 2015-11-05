@@ -1,24 +1,22 @@
-SOURCES = lib/**/*.js
+SOURCES ?= lib/*.js
+TESTS ?= test/*.test.js
+
+test: test-mocha
 
 # ==============================================================================
-# Node Tests
+# Node.js
 # ==============================================================================
-
-VOWS = ./node_modules/.bin/vows
-TESTS ?= test/*-test.js
-
-test:
-	@NODE_ENV=test NODE_PATH=lib $(VOWS) $(TESTS)
+include support/mk/node.mk
+include support/mk/mocha.mk
 
 # ==============================================================================
-# Static Analysis
+# Clean
 # ==============================================================================
+clean:
+	rm -rf build
+	rm -rf reports
 
-JSHINT = jshint
-
-hint: lint
-lint:
-	$(JSHINT) $(SOURCES)
+clobber: clean clobber-node
 
 
-.PHONY: test hint lint
+.PHONY: test clean clobber
