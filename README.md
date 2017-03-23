@@ -27,7 +27,7 @@ passport.use(new HerokuStrategy({
     state: true // CSRF protection, necessitates sessions
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ githubId: profile.id }, function (err, user) {
+    User.findOrCreate({ herokuId: profile.id }, function (err, user) {
       return done(err, user);
     });
   }
