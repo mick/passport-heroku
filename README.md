@@ -17,11 +17,14 @@ $ npm install passport-heroku
 
 The Heroku authentication strategy authenticates users using a Heroku account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts these credentials and calls `done` providing a user, as well as `options` specifying a client ID, client secret, and callback URL.
 
+The `state` flag turns on a valuable protection against login CSRF attacks, but is reliant on sessions being enabled. If you're using sessions, you should set the flag and get a layer of defense for free. If you set the flag and no session exists, an error will be thrown.
+
 ```js
 passport.use(new HerokuStrategy({
     clientID: Heroku_CLIENT_ID,
     clientSecret: Heroku_CLIENT_SECRET,
-    callbackURL: "http://127.0.0.1:3000/auth/heroku/callback"
+    callbackURL: "http://127.0.0.1:3000/auth/heroku/callback",
+    state: true // CSRF protection, necessitates sessions
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({ githubId: profile.id }, function (err, user) {
