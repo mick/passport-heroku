@@ -3,11 +3,7 @@
 [Passport](http://passportjs.org/) strategy for authenticating with [Heroku](https://heroku.com/)
 using the OAuth 2.0 API.
 
-This module lets you authenticate using Heroku in your Node.js applications.
-By plugging into Passport, Heroku authentication can be easily and
-unobtrusively integrated into any application or framework that supports
-[Connect](http://www.senchalabs.org/connect/)-style middleware, including
-[Express](http://expressjs.com/).
+This module lets you authenticate using Heroku in your Node.js applications. By plugging into Passport, Heroku authentication can be easily and unobtrusively integrated into any application or framework that supports [Connect](http://www.senchalabs.org/connect/)-style middleware, including [Express](http://expressjs.com/).
 
 ## Install
 
@@ -19,10 +15,7 @@ $ npm install passport-heroku
 
 #### Configure Strategy
 
-The Heroku authentication strategy authenticates users using a Heroku account
-and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts
-these credentials and calls `done` providing a user, as well as `options`
-specifying a client ID, client secret, and callback URL.
+The Heroku authentication strategy authenticates users using a Heroku account and OAuth 2.0 tokens.  The strategy requires a `verify` callback, which accepts these credentials and calls `done` providing a user, as well as `options` specifying a client ID, client secret, and callback URL.
 
 ```js
 passport.use(new HerokuStrategy({
@@ -40,17 +33,15 @@ passport.use(new HerokuStrategy({
 
 #### Authenticate Requests
 
-Use `passport.authenticate()`, specifying the `'heroku'` strategy, to
-authenticate requests.
+Use `passport.authenticate()`, specifying the `'heroku'` strategy, to authenticate requests.
 
-For example, as route middleware in an [Express](http://expressjs.com/)
-application:
+For example, as route middleware in an [Express](http://expressjs.com/) application:
 
 ```js
 app.get('/auth/heroku',
   passport.authenticate('heroku'));
 
-app.get('/auth/heroku/callback', 
+app.get('/auth/heroku/callback',
   passport.authenticate('heroku', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
@@ -81,4 +72,3 @@ $ make test
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2013 Mick Thompson <[http://mick.im/](http://mick.im/)>
-
